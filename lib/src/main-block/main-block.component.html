@@ -1,0 +1,57 @@
+<div>
+    <material-input label="Сумма"
+                  floatingLabel>
+  </material-input>
+  <material-button raised> Рассчитать </material-button>
+
+  <material-expansionpanel name="Ответ"
+                           [showSaveCancel]="false"
+                           [expanded]="true">
+    ...
+  </material-expansionpanel>
+
+  <material-input label="Добавить номинал"
+                  autoFocus floatingLabel style="width:80%"
+                  [(ngModel)]="newItem"
+                  (keyup.enter)="add()">
+  </material-input>
+
+  <material-fab mini raised
+                (trigger)="add()"
+                [disabled]="newItem.isEmpty">
+    <material-icon icon="add"></material-icon>
+  </material-fab>
+</div>
+
+<p *ngIf="items.isEmpty">
+  Не выбрно номиналов
+</p>
+
+<div *ngIf="items.isNotEmpty">
+  <ul>
+      <li *ngFor="let item of items; let i=index">
+        <span>{{item}}</span>
+        <material-fab mini (trigger)="remove(i)">
+          <material-icon icon="delete"></material-icon>
+        </material-fab>
+      </li>
+  </ul>
+</div>
+
+<modal [visible]="showDialog">
+  <material-dialog class="basic-dialog">
+
+    <h1 header>Ошибка!</h1>
+
+    <p>
+      Номиналом купюр могут быть только натуральные числа.
+    </p>
+
+    <div footer>
+      <material-button autoFocus clear-size (trigger)="showDialog = false">
+        Закрыть
+      </material-button>
+    </div>
+
+  </material-dialog>
+</modal>
