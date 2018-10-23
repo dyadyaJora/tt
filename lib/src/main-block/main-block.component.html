@@ -1,8 +1,9 @@
 <div>
     <material-input label="Сумма"
-                  floatingLabel>
+                    [(ngModel)]="sum"
+                    floatingLabel>
   </material-input>
-  <material-button raised> Рассчитать </material-button>
+  <material-button raised (trigger)="doCalc()"> Рассчитать </material-button>
 
   <material-expansionpanel name="Ответ"
                            [showSaveCancel]="false"

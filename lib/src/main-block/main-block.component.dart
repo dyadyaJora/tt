@@ -33,6 +33,7 @@ class MainBlockComponent implements OnInit {
   final MainBlockService service;
 
   List<int> items = [1, 5, 10];
+  String sum = '';
   String newItem = '';
 
   MainBlockComponent(this.service);
@@ -46,11 +47,17 @@ class MainBlockComponent implements OnInit {
       int item = int.parse(newItem);
       if (items.indexOf(item) == -1)
         items.add(item);
-        
+
       newItem = '';
     } catch (e) {
       this.showDialog = true;
     }
+  }
+
+  void doCalc() {
+    int s = int.parse(sum);
+    List<int> x = this.service.calc(items, s);
+    print(x);
   }
 
   int remove(int index) => items.removeAt(index);
