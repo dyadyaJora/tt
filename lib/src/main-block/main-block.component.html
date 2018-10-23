@@ -3,7 +3,7 @@
                     [(ngModel)]="sum"
                     floatingLabel>
   </material-input>
-  <material-button raised (trigger)="doCalc()"> Рассчитать </material-button>
+  <material-button raised (trigger)="doCalc()" [disabled]="sum=='' || items.isEmpty"> Рассчитать </material-button>
 
   <material-expansionpanel name="Ответ"
                            [showSaveCancel]="false"
@@ -46,7 +46,7 @@
     <h1 header>Ошибка!</h1>
 
     <p>
-      Номиналом купюр могут быть только натуральные числа.
+      Можно вводить только натуральные числа.
     </p>
 
     <div footer>

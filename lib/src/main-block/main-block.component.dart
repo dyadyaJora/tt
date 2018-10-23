@@ -57,21 +57,33 @@ class MainBlockComponent implements OnInit {
   }
 
   void doCalc() {
-    int s = int.parse(sum);
-    List<int> res = this.service.calc(items, s);
-
-    if (res == null) {
-      this.str_res = 'Невозможно произвести выдачу заданной суммы';
+    int s;
+    try {
+      s = int.parse(sum);
+    } catch (e) {
+      this.showDialog = true;
       return;
     }
 
-    Set<int> l = res.toSet();
-    this.arr_res = res.toString();
-    this.str_res = '';
-    l.forEach((item) {
-      this.str_res +=  item.toString() + ' x ' + (res.lastIndexOf(item) - res.indexOf(item) + 1).toString() + ' шт; ';
-    });
-    print(res);
+    this.str_res = 'Идет вычисление...';
+    this.service.startCalculate(items, s)
+      .then((res) {    
+        if (res == null) {
+          this.str_res = 'Невозможно произвести выдачу заданной суммы';
+          return;
+        }
+
+        Set<int> l = res.toSet();
+        this.arr_res = res.toString();
+        this.str_res = '';
+        l.forEach((item) {
+          this.str_res +=  item.toString() + ' x ' + (res.lastIndexOf(item) - res.indexOf(item) + 1).toString() + ' шт; ';
+        });
+        print(res);
+      })
+      .catchError((err) {
+        // ...
+      });
   }
 
   int remove(int index) => items.removeAt(index);
