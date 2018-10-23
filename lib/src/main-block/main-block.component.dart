@@ -30,6 +30,8 @@ import 'main-block.service.dart';
 class MainBlockComponent implements OnInit {
 
   bool showDialog = false;
+  String str_res = '...';
+  String arr_res = '';
   final MainBlockService service;
 
   List<int> items = [1, 5, 10];
@@ -56,8 +58,20 @@ class MainBlockComponent implements OnInit {
 
   void doCalc() {
     int s = int.parse(sum);
-    List<int> x = this.service.calc(items, s);
-    print(x);
+    List<int> res = this.service.calc(items, s);
+
+    if (res == null) {
+      this.str_res = 'Невозможно произвести выдачу заданной суммы';
+      return;
+    }
+
+    Set<int> l = res.toSet();
+    this.arr_res = res.toString();
+    this.str_res = '';
+    l.forEach((item) {
+      this.str_res +=  item.toString() + ' x ' + (res.lastIndexOf(item) - res.indexOf(item) + 1).toString() + ' шт; ';
+    });
+    print(res);
   }
 
   int remove(int index) => items.removeAt(index);

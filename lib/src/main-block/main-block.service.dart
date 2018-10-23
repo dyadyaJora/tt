@@ -55,6 +55,7 @@ class MainBlockService {
 		}
 
 		try {
+			map[sum].sort();
 			res = map[sum].reduce((a, b) {return a+b;});
 			if (res == sum) 
 				return map[sum];
